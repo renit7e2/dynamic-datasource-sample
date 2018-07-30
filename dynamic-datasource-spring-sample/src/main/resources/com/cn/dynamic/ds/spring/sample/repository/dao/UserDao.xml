@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cn.dynamic.ds.spring.sample.repository.dao.UserDao">
+    <resultMap id="BaseResultMap" type="com.cn.dynamic.ds.spring.sample.repository.po.UserPO">
+        <id column="uid" property="uid" jdbcType="BIGINT"/>
+        <result column="name" property="name" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+       uid,name
+    </sql>
+
+    <insert id="insert" parameterType="com.cn.dynamic.ds.spring.sample.repository.po.UserPO">
+        INSERT INTO t_user (
+        uid ,name
+        )
+        VALUE (#{item.uid,jdbcType=BIGINT},#{item.name,jdbcType=VARCHAR})
+    </insert>
+
+    <select id="queryByUid" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM t_user
+        where uid=#{uid}
+    </select>
+
+    <update id="updateNameByUid">
+        UPDATE t_user
+        SET name= #{name,jdbcType=VARCHAR}
+        where uid=#{uid}
+    </update>
+
+    <delete id="deleteByUid">
+        DELETE FROM
+        t_user
+        where uid=#{uid}
+    </delete>
+</mapper>
